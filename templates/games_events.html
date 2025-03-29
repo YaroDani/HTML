@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %} Games {% endblock %}
+
+{% block content %}
+
+{% if session.get('username') %}
+    <form method="POST">
+        {% if not start %}
+        <div class="container">
+            <button type="submit" name="action" value="start" class="btn btn-success" >Start</button>
+        </div>
+        {% endif %}
+
+     </form>
+
+{% endif %}
+<form method="POST">
+    {% if start %}
+
+        <div class="container">
+            <div>
+                <input type="text" placeholder="name_event" name="name_event"> <br>
+                <textarea type="text" placeholder="info" name="info"></textarea> <br>
+                Date start: <input type="date" name="start_date"><br>
+                Date end: <input type="date" name="end_date"><br>
+            </div>
+            <div class="container">
+                <button type="submit" name="action" value="create" class="btn btn-success" >Create</button>
+            </div>
+
+        </div>
+
+    {% endif %}
+</form>
+
+{% if events %}
+    <table border="1" class="table">
+        <tr>
+            <th>Name</th>
+            <th>Info</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+        {% for event in events %}
+        <tr>
+            <td>{{ event.name }}</td>
+            <td>{{ event.info }}</td>
+            <td>{{ event.start_date }}</td>
+            <td>{{ event.end_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+{% endblock %}
